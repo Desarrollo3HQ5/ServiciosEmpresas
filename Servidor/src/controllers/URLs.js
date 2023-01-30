@@ -1,5 +1,5 @@
 function UrlAccestoken(){
-    var refresh_ = '1000.33a5526ca066d526ee93e1d4eac2c002.c2707bc77a9bb1cfcb29e590da4581b8';
+    var refresh_ = '1000.361a90e9a2b60154103970f01fb42e33.b9220687af76e357bb1e1e4aefc95d95';
     var url = 'https://accounts.zoho.com/oauth/v2/token?refresh_token=' + refresh_ + '&client_id=1000.1X8CFKQHNVMIQYBM2LD5D630UAMMXB&client_secret=ed77d9ad812478a75cb46e11db1bbc262b8f1d49bf&grant_type=refresh_token';
     return url;
 }
@@ -55,6 +55,26 @@ async function Consulta(url = "", data = {}, access_) {
           headers: {
             Authorization: "Zoho-oauthtoken " + access_,
             "Access-Control-Allow-Origin": "*"
+  
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: JSON.stringify(data)
+        });
+        return response.json(); // parses JSON response into native JavaScript objects
+      }
+      async function uploadFIle(url = "", data = {}, access_) {
+        // Default options are marked with *
+        const response = await fetch(url, {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          //   mode: 'cors', // no-cors, *cors, same-origin
+          //   cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          //   credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            Authorization: "Zoho-oauthtoken " + access_,
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "multipart/form-data"
+            // "Content-Type": 'application/json'
+  
             // 'Content-Type': 'application/x-www-form-urlencoded',
           },
           body: JSON.stringify(data)
@@ -87,4 +107,4 @@ async function Consulta(url = "", data = {}, access_) {
       }
 
 
-export {UrlAccestoken,agregar,Consulta,AccesToken,update}
+export {UrlAccestoken,agregar,Consulta,AccesToken,update,uploadFIle}

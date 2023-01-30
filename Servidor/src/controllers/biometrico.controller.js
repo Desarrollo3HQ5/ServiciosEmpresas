@@ -1,6 +1,6 @@
 const biometricoCtrl ={}
 // Date_of_Joining=13-May-2019
-import { UrlAccestoken,AccesToken,Consulta,agregar,update} from '../controllers/URLs.js'
+import { UrlAccestoken,AccesToken,Consulta,agregar,update,uploadFIle} from '../controllers/URLs.js'
 biometricoCtrl.getBiometrico = (req, res) => {
     var cc = req.params.id;
     var estado = req.params.estado;
@@ -126,8 +126,10 @@ biometricoCtrl.uploadFile =(req,res) => {
   var ID = req.params.id;
   console.log("JUAN")
   console.log(ID)
-  console.log(req.body)
-  const datos = { file:req.body
+  const datos = { file:{
+    "name":"juan",
+    "file":req.body.File
+  }
   };
   var URL_ = UrlAccestoken();
     AccesToken(
@@ -135,7 +137,8 @@ biometricoCtrl.uploadFile =(req,res) => {
       { answer: 42 }
     ).then((data) => {
       var url ="https://creator.zoho.com/api/v2/hq5colombia/clientes/report/Biometrico1_Report/"+ID + "/Foto_ingreso/upload";
-      agregar(url, datos, data["access_token"]).then((data2) => {
+      console.log(url)
+      uploadFIle(url, datos, data["access_token"]).then((data2) => {
         console.log(data2);
         // res.render("resultado", { access: data2 });
         // res.json(data2.data[0]);

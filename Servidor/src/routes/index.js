@@ -15,7 +15,7 @@ router.get("/empleado/:id", empleadoCtrl.getempleado);
 router.get("/getbiometrico/:id/:estado/:validacion", biometricoCtrl.getBiometrico);
 //POST
 router.post("/addbiometrico/:estado", biometricoCtrl.addBiometrico);
-router.post("/uploadfile/", biometricoCtrl.uploadFile);
+router.post("/uploadfile/:id", biometricoCtrl.uploadFile);
 //PUT
 router.put("/updatebiometrico/:id",biometricoCtrl.updateBiometrico)
 
