@@ -1,15 +1,16 @@
 const biometricoCtrl ={}
-// Date_of_Joining=13-May-2019
 import { UrlAccestoken,AccesToken,Consulta,agregar,update,uploadFIle} from '../controllers/URLs.js'
 biometricoCtrl.getBiometrico = (req, res) => {
     var cc = req.params.id;
+    
     var estado = req.params.estado;
     var Validacion = req.params.validacion;
     var URL_ = UrlAccestoken();
     let now = new Date();
-    //Se toma fecha actual para validar si existe registro
     const  dias = now.getDate();
-    var FechaActual_ = now.getDate() + "/" + now.getMonth() + 1 + "/" + now.getFullYear()
+    var Mes1_ = now.getMonth();
+    var Mes2_ = parseInt(Mes1_) + 1;
+    var FechaActual_ = now.getDate() + "/" + Mes2_ + "/" + now.getFullYear()
     
     AccesToken(
       URL_,
@@ -26,7 +27,9 @@ biometricoCtrl.getBiometrico = (req, res) => {
         else{
               if (now.getHours() >= 1 && now.getHours() <=9 ) {
                 now.setDate( dias - 1 )
-                FechaActual_ = now.getDate() + "/" + now.getMonth() + 1 + "/" + now.getFullYear()
+                var Mes1_ = now.getMonth();
+                var Mes2_ = parseInt(Mes1_) + 1;
+                FechaActual_ = now.getDate() + "/" + Mes2_ + "/" + now.getFullYear()
               }
               var Params_ = new URLSearchParams({ N_mero_de_Identificaci_n: cc,Fecha_ingreso:FechaActual_}).toString();
         }
@@ -53,7 +56,9 @@ biometricoCtrl.getBiometrico = (req, res) => {
 }
 biometricoCtrl.addBiometrico = (req, res) => {
     let now = new Date();
-    const Fecha_ = now.getDate() + "/" +  now.getMonth() + 1 + "/" + now.getFullYear();
+    var Mes1_ = now.getMonth();
+    var Mes2_ = parseInt(Mes1_) + 1;
+    const Fecha_ = now.getDate() + "/" +  Mes2_ + "/" + now.getFullYear();
     const Hora_ = now.getHours() +":" + now.getMinutes() + ":" + now.getSeconds();
     const Estado = req.params.estado;
 
@@ -88,7 +93,6 @@ biometricoCtrl.addBiometrico = (req, res) => {
       var url ="https://creator.zoho.com/api/v2/hq5colombia/clientes/form/Biometrico1";
       agregar(url, datos, data["access_token"]).then((data2) => {
         console.log(data2);
-        // res.render("resultado", { access: data2 });
         res.json(data2.data);
       });
     });
@@ -96,7 +100,9 @@ biometricoCtrl.addBiometrico = (req, res) => {
 biometricoCtrl.updateBiometrico = (req, res) => {
     var ID = req.params.id;
     let now = new Date();
-    const Fecha_ = now.getDate() + "/" +  now.getMonth() + 1 + "/" + now.getFullYear();
+    var Mes1_ = now.getMonth();
+    var Mes2_ = parseInt(Mes1_) + 1;
+    const Fecha_ = now.getDate() + "/" +  Mes2_ + "/" + now.getFullYear();
     const Hora_ = now.getHours() +":" + now.getMinutes() + ":" + now.getSeconds();
     
     const datos = { data:{
@@ -116,8 +122,6 @@ biometricoCtrl.updateBiometrico = (req, res) => {
       var url ="https://creator.zoho.com/api/v2/hq5colombia/clientes/report/Biometrico1_Report/"+ID;
       update(url, datos, data["access_token"]).then((data2) => {
         console.log(data2);
-        // res.render("resultado", { access: data2 });
-        // res.json(data2.data[0]);
       });
     });
 }
@@ -140,8 +144,6 @@ biometricoCtrl.uploadFile =(req,res) => {
       console.log(url)
       uploadFIle(url, datos, data["access_token"]).then((data2) => {
         console.log(data2);
-        // res.render("resultado", { access: data2 });
-        // res.json(data2.data[0]);
       });
     });
 }
